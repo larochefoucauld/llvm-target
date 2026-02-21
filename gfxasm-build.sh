@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+set -e
+
+PROJECT_DIR=$(pwd)
+BUILD_DIR="$PROJECT_DIR/build"
+CMAKE_FLAGS="\
+-DCMAKE_C_COMPILER=clang \
+-DCMAKE_CXX_COMPILER=clang++ \
+-DLLVM_USE_LINKER=lld \
+-DLLVM_ENABLE_PROJECTS='clang' \
+-DCMAKE_INSTALL_PREFIX=install \
+-DCMAKE_BUILD_TYPE=Release \
+-DLLVM_ENABLE_ASSERTIONS=ON \
+-DLLVM_TARGETS_TO_BUILD='X86;GFXAsm' \
+-DLLVM_INCLUDE_TESTS=OFF \
+-DLLVM_INCLUDE_EXAMPLES=OFF"
+BUILD_SYSTEM="Ninja"
+
+set -x
+
+mkdir -p "$BUILD_DIR"
+cmake $CMAKE_FLAGS -S llvm -B "$BUILD_DIR" -G "$BUILD_SYSTEM"
+cmake --build build --target llc clang
