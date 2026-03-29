@@ -1,0 +1,27 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "debug",
+      "displayName": "LLVM with X86 and GFXAsm targets [Debug]",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "LLVM_ENABLE_ASSERTIONS": "ON",
+        "LLVM_USE_LINKER": "lld-20",
+        "LLVM_ENABLE_PROJECTS": "clang",
+        "LLVM_TARGETS_TO_BUILD": "X86;GFXAsm",
+        "LLVM_OPTIMIZED_TABLEGEN": "ON",
+        "LLVM_INCLUDE_TESTS": "OFF",
+        "LLVM_INCLUDE_EXAMPLES": "OFF"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "debug",
+      "configurePreset": "debug"
+    }
+  ]
+}

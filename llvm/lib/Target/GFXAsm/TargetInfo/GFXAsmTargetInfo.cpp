@@ -1,5 +1,5 @@
 #include "GFXAsmTargetInfo.h"
-#include "../GFXAsm.h"
+#include "GFXAsm.h"
 #include "llvm/MC/TargetRegistry.h"
 
 using namespace llvm;
