@@ -11,8 +11,8 @@ using namespace llvm;
 #define GET_SUBTARGETINFO_CTOR
 #include "GFXAsmGenSubtargetInfo.inc"
 
-GFXAsmSubtarget::GFXAsmSubtarget(const StringRef &CPU, const StringRef &TuneCPU,
-                                 const StringRef &FS, const TargetMachine &TM)
-    : GFXAsmGenSubtargetInfo(TM.getTargetTriple(), CPU, TuneCPU, FS) {
+GFXAsmSubtarget::GFXAsmSubtarget(const Triple &TT, const std::string &CPU,
+                                 const std::string &FS, const TargetMachine &TM)
+    : GFXAsmGenSubtargetInfo(TT, CPU, CPU, FS), TLInfo(TM, *this) {
   GFXASM_DUMP_CYAN
 }

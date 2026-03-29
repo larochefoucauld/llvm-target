@@ -23,6 +23,20 @@ enum NodeType : unsigned {
 
 } // namespace GFXAsmISD
 
+class GFXAsmTargetLowering : public TargetLowering {
+public:
+  explicit GFXAsmTargetLowering(const TargetMachine &TM,
+                                const GFXAsmSubtarget &STI);
+
+  /// This method returns the name of a target specific DAG node.
+  const char *getTargetNodeName(unsigned Opcode) const override;
+
+  GFXAsmSubtarget const &getSubtarget() const { return STI; }
+
+private:
+  const GFXAsmSubtarget &STI;
+};
+
 } // namespace llvm
 
 #endif // LLVM_LIB_TARGET_GFXASM_GFXASMISELLOWERING_H

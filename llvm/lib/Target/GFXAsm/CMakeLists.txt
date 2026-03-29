@@ -17,6 +17,7 @@ add_llvm_target(GFXAsmCodeGen
   GFXAsmSubtarget.cpp
   GFXAsmAsmPrinter.cpp
   GFXAsmISelDagToDag.cpp
+  GFXAsmISelLowering.cpp
 
   LINK_COMPONENTS
   CodeGen
