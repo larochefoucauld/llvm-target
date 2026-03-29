@@ -7,6 +7,7 @@
 
 #include "GFXAsm.h"
 #include "GFXAsmInfo.h"
+#include "GFXAsmInstPrinter.h"
 #include "GFXAsmMCAsmInfo.h"
 #include "TargetInfo/GFXAsmTargetInfo.h"
 
@@ -52,6 +53,15 @@ static MCAsmInfo *createGFXAsmMCAsmInfo(const MCRegisterInfo &MRI,
   return MAI;
 }
 
+static MCInstPrinter *createGFXAsmMCInstPrinter(const Triple &T,
+                                                unsigned SyntaxVariant,
+                                                const MCAsmInfo &MAI,
+                                                const MCInstrInfo &MII,
+                                                const MCRegisterInfo &MRI) {
+  GFXASM_DUMP_MAGENTA
+  return new GFXAsmInstPrinter(MAI, MII, MRI);
+}
+
 // We need to define this function for linking to succeed
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGFXAsmTargetMC() {
   GFXASM_DUMP_MAGENTA
@@ -64,6 +74,9 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGFXAsmTargetMC() {
   // Register the MC subtarget info.
   TargetRegistry::RegisterMCSubtargetInfo(TheGfxAsmTarget,
                                           createGFXAsmMCSubtargetInfo);
-  // Register the MC asm info.
+  // Register the MCAsmInfo.
   RegisterMCAsmInfoFn X(TheGfxAsmTarget, createGFXAsmMCAsmInfo);
+  // Register the MCInstPrinter
+  TargetRegistry::RegisterMCInstPrinter(TheGfxAsmTarget,
+                                        createGFXAsmMCInstPrinter);
 }
