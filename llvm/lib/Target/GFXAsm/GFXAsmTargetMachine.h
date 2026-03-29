@@ -10,11 +10,15 @@ extern Target TheGFXAsmTarget;
 class GFXAsmTargetMachine : public CodeGenTargetMachineImpl {
 public:
   GFXAsmTargetMachine(const Target &T, const Triple &TT, StringRef CPU,
-                   StringRef FS, const TargetOptions &Options,
-                   std::optional<Reloc::Model> RM,
-                   std::optional<CodeModel::Model> CM, CodeGenOptLevel OL,
-                   bool JIT);
+                      StringRef FS, const TargetOptions &Options,
+                      std::optional<Reloc::Model> RM,
+                      std::optional<CodeModel::Model> CM, CodeGenOptLevel OL,
+                      bool JIT);
+
+  // Pass Pipeline Configuration
+  TargetPassConfig *createPassConfig(PassManagerBase &PM) override;
 };
+
 } // namespace llvm
 
 #endif // LLVM_LIB_TARGET_GFXASM_GFXASMTARGETMACHINE_H

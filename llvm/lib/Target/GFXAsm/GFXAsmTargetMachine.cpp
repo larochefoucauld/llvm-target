@@ -1,10 +1,11 @@
-#include "GFXAsmTargetMachine.h"
-#include "GFXAsm.h"
+#include <optional>
 
-#include "TargetInfo/GFXAsmTargetInfo.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/MC/TargetRegistry.h"
 
-#include <optional>
+#include "GFXAsm.h"
+#include "GFXAsmTargetMachine.h"
+#include "TargetInfo/GFXAsmTargetInfo.h"
 
 using namespace llvm;
 
@@ -25,4 +26,25 @@ GFXAsmTargetMachine::GFXAsmTargetMachine(const Target &T, const Triple &TT,
           Reloc::Static, getEffectiveCodeModel(CM, CodeModel::Small), OL) {
   GFXASM_DUMP_CYAN
   initAsmInfo();
+}
+
+namespace {
+
+/// GFXAsm Code Generator Pass Configuration Options.
+class GFXAsmPassConfig : public TargetPassConfig {
+public:
+  GFXAsmPassConfig(GFXAsmTargetMachine &TM, PassManagerBase &PM)
+      : TargetPassConfig(TM, PM) {}
+
+  bool addInstSelector() override {
+    GFXASM_DUMP_CYAN
+    return false;
+  }
+};
+
+} // namespace
+
+TargetPassConfig *GFXAsmTargetMachine::createPassConfig(PassManagerBase &PM) {
+  GFXASM_DUMP_CYAN
+  return new GFXAsmPassConfig(*this, PM);
 }
