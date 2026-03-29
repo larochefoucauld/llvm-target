@@ -1,10 +1,13 @@
+#include "llvm/MC/MCDwarf.h"
 #include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/ErrorHandling.h"
 
 #include "GFXAsm.h"
 #include "GFXAsmInfo.h"
+#include "GFXAsmMCAsmInfo.h"
 #include "TargetInfo/GFXAsmTargetInfo.h"
 
 using namespace llvm;
@@ -38,6 +41,17 @@ createGFXAsmMCSubtargetInfo(const Triple &TT, StringRef CPU, StringRef FS) {
   return createGFXAsmMCSubtargetInfoImpl(TT, CPU, CPU, FS);
 }
 
+static MCAsmInfo *createGFXAsmMCAsmInfo(const MCRegisterInfo &MRI,
+                                        const Triple &TT,
+                                        const MCTargetOptions &Options) {
+  GFXASM_DUMP_MAGENTA
+  MCAsmInfo *MAI = new GFXAsmELFMCAsmInfo(TT);
+  unsigned SP = MRI.getDwarfRegNum(GFXAsm::R1, true);
+  MCCFIInstruction Inst = MCCFIInstruction::cfiDefCfa(nullptr, SP, 0);
+  MAI->addInitialFrameState(Inst);
+  return MAI;
+}
+
 // We need to define this function for linking to succeed
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGFXAsmTargetMC() {
   GFXASM_DUMP_MAGENTA
@@ -50,4 +64,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGFXAsmTargetMC() {
   // Register the MC subtarget info.
   TargetRegistry::RegisterMCSubtargetInfo(TheGfxAsmTarget,
                                           createGFXAsmMCSubtargetInfo);
+  // Register the MC asm info.
+  RegisterMCAsmInfoFn X(TheGfxAsmTarget, createGFXAsmMCAsmInfo);
 }
