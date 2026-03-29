@@ -3,6 +3,7 @@
 
 #include "MCTargetDesc/GFXAsmMCTargetDesc.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Target/TargetMachine.h"
 
 #define GFXASM_DUMP(Color)                                                     \
   {                                                                            \
@@ -17,5 +18,15 @@
 #define GFXASM_DUMP_CYAN GFXASM_DUMP(llvm::raw_ostream::CYAN)
 #define GFXASM_DUMP_MAGENTA GFXASM_DUMP(llvm::raw_ostream::MAGENTA)
 #define GFXASM_DUMP_WHITE GFXASM_DUMP(llvm::raw_ostream::WHITE)
+
+namespace llvm {
+
+class GFXAsmTargetMachine;
+class FunctionPass;
+
+FunctionPass *createGFXAsmISelDag(GFXAsmTargetMachine &TM,
+                               CodeGenOptLevel OptLevel);
+
+} // namespace llvm
 
 #endif // LLVM_LIB_TARGET_GFXASM_GFXASM_H
