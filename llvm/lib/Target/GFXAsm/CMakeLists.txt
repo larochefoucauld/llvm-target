@@ -7,6 +7,7 @@ tablegen(LLVM GFXAsmGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM GFXAsmGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM GFXAsmGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM GFXAsmGenDAGISel.inc -gen-dag-isel)
+tablegen(LLVM GFXAsmGenCallingConv.inc -gen-callingconv)
 
 add_public_tablegen_target(GFXAsmCommonTableGen)
 
