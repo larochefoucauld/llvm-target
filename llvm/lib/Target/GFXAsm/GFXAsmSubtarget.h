@@ -1,11 +1,13 @@
 #ifndef LLVM_LIB_TARGET_GFXASM_GFXASMSUBTARGET_H
 #define LLVM_LIB_TARGET_GFXASM_GFXASMSUBTARGET_H
 
+#include "llvm/CodeGen/SelectionDAGTargetInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #include "GFXAsm.h"
 #include "GFXAsmFrameLowering.h"
 #include "GFXAsmISelLowering.h"
+#include "GFXAsmInstrInfo.h"
 #include "GFXAsmRegisterInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -37,10 +39,19 @@ public:
     return &RegInfo;
   }
 
+  const GFXAsmInstrInfo *getInstrInfo() const override { return &InstrInfo; }
+
+  const SelectionDAGTargetInfo *getSelectionDAGInfo() const override {
+    GFXASM_DUMP_CYAN
+    return &TSInfo;
+  }
+
 private:
   GFXAsmTargetLowering TLInfo;
   GFXAsmFrameLowering FrameLowering;
   GFXAsmRegisterInfo RegInfo;
+  GFXAsmInstrInfo InstrInfo;
+  SelectionDAGTargetInfo TSInfo;
 };
 
 } // namespace llvm
