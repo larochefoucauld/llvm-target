@@ -1,16 +1,23 @@
 #ifndef LLVM_LIB_TARGET_GFXASM_GFXASM_H
 #define LLVM_LIB_TARGET_GFXASM_GFXASM_H
 
-#include "MCTargetDesc/GFXAsmMCTargetDesc.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Target/TargetMachine.h"
 
+#include "MCTargetDesc/GFXAsmMCTargetDesc.h"
+
+// #define GFXASM_DUMP_ENABLE
+
+#ifdef GFXASM_DUMP_ENABLE
 #define GFXASM_DUMP(Color)                                                     \
   {                                                                            \
     llvm::errs().changeColor(Color)                                            \
         << __func__ << "\n\t\t" << __FILE__ << ":" << __LINE__ << "\n";        \
     llvm::errs().changeColor(llvm::raw_ostream::WHITE);                        \
   }
+#else
+#define GFXASM_DUMP(Color)
+#endif
 
 #define GFXASM_DUMP_RED GFXASM_DUMP(llvm::raw_ostream::RED)
 #define GFXASM_DUMP_GREEN GFXASM_DUMP(llvm::raw_ostream::GREEN)
