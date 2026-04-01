@@ -13,6 +13,7 @@ using namespace llvm;
 
 GFXAsmSubtarget::GFXAsmSubtarget(const Triple &TT, const std::string &CPU,
                                  const std::string &FS, const TargetMachine &TM)
-    : GFXAsmGenSubtargetInfo(TT, CPU, CPU, FS), TLInfo(TM, *this) {
+    : GFXAsmGenSubtargetInfo(TT, CPU, CPU, FS), TLInfo(TM, *this),
+      FrameLowering(*this) {
   GFXASM_DUMP_CYAN
 }

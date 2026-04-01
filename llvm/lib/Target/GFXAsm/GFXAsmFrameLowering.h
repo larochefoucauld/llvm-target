@@ -7,10 +7,13 @@
 
 namespace llvm {
 
+class GFXAsmSubtarget;
+
 class GFXAsmFrameLowering : public TargetFrameLowering {
 public:
-  explicit GFXAsmFrameLowering()
-      : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0) {
+  GFXAsmFrameLowering(const GFXAsmSubtarget &STI)
+      : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0),
+        STI(STI) {
     GFXASM_DUMP_GREEN
   }
 
@@ -25,6 +28,9 @@ public:
   /// frame pointer register. For most targets this is true only if the function
   /// has variable sized allocas or if frame pointer elimination is disabled.
   bool hasFPImpl(const MachineFunction &MF) const override { return false; }
+
+private:
+  const GFXAsmSubtarget &STI;
 };
 
 } // namespace llvm

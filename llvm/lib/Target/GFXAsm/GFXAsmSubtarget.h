@@ -4,6 +4,7 @@
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #include "GFXAsm.h"
+#include "GFXAsmFrameLowering.h"
 #include "GFXAsmISelLowering.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -25,8 +26,14 @@ public:
     return &TLInfo;
   }
 
+  const GFXAsmFrameLowering *getFrameLowering() const override {
+    GFXASM_DUMP_CYAN
+    return &FrameLowering;
+  }
+
 private:
   GFXAsmTargetLowering TLInfo;
+  GFXAsmFrameLowering FrameLowering;
 };
 
 } // namespace llvm
