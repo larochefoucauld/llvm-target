@@ -6,6 +6,7 @@
 #include "GFXAsm.h"
 #include "GFXAsmFrameLowering.h"
 #include "GFXAsmISelLowering.h"
+#include "GFXAsmRegisterInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
 #include "GFXAsmGenSubtargetInfo.inc"
@@ -31,9 +32,15 @@ public:
     return &FrameLowering;
   }
 
+  const GFXAsmRegisterInfo *getRegisterInfo() const override {
+    GFXASM_DUMP_CYAN
+    return &RegInfo;
+  }
+
 private:
   GFXAsmTargetLowering TLInfo;
   GFXAsmFrameLowering FrameLowering;
+  GFXAsmRegisterInfo RegInfo;
 };
 
 } // namespace llvm
