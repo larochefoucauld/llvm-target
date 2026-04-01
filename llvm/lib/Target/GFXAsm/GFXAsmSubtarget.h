@@ -39,7 +39,10 @@ public:
     return &RegInfo;
   }
 
-  const GFXAsmInstrInfo *getInstrInfo() const override { return &InstrInfo; }
+  const GFXAsmInstrInfo *getInstrInfo() const override {
+    GFXASM_DUMP_CYAN
+    return &InstrInfo;
+  }
 
   const SelectionDAGTargetInfo *getSelectionDAGInfo() const override {
     GFXASM_DUMP_CYAN

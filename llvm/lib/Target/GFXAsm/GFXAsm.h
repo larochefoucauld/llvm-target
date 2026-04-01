@@ -23,9 +23,23 @@ namespace llvm {
 
 class GFXAsmTargetMachine;
 class FunctionPass;
+class GFXAsmSubtarget;
+class AsmPrinter;
+class InstructionSelector;
+class MCInst;
+class MCOperand;
+class MachineInstr;
+class MachineOperand;
+class PassRegistry;
+
+bool lowerGFXAsmMachineInstrToMCInst(const MachineInstr *MI, MCInst &OutMI,
+                                     AsmPrinter &AP);
+bool LowerGFXAsmMachineOperandToMCOperand(const MachineOperand &MO,
+                                          MCOperand &MCOp,
+                                          const AsmPrinter &AP);
 
 FunctionPass *createGFXAsmISelDag(GFXAsmTargetMachine &TM,
-                               CodeGenOptLevel OptLevel);
+                                  CodeGenOptLevel OptLevel);
 
 } // namespace llvm
 

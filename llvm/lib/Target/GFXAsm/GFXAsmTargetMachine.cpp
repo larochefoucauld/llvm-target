@@ -38,8 +38,13 @@ public:
   GFXAsmPassConfig(GFXAsmTargetMachine &TM, PassManagerBase &PM)
       : TargetPassConfig(TM, PM) {}
 
+  GFXAsmTargetMachine &getGFXAsmTargetMachine() const {
+    return getTM<GFXAsmTargetMachine>();
+  }
+
   bool addInstSelector() override {
     GFXASM_DUMP_CYAN
+    addPass(createGFXAsmISelDag(getGFXAsmTargetMachine(), getOptLevel()));
     return false;
   }
 };
