@@ -2,6 +2,7 @@ add_llvm_component_library(LLVMGFXAsmDesc
   GFXAsmMCTargetDesc.cpp
   GFXAsmMCAsmInfo.cpp
   GFXAsmInstPrinter.cpp
+  GFXAsmMCCodeEmitter.cpp
 
   LINK_COMPONENTS
   MC

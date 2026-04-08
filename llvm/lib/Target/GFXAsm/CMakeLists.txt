@@ -9,6 +9,7 @@ tablegen(LLVM GFXAsmGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM GFXAsmGenDAGISel.inc -gen-dag-isel)
 tablegen(LLVM GFXAsmGenCallingConv.inc -gen-callingconv)
 tablegen(LLVM GFXAsmGenAsmWriter.inc -gen-asm-writer)
+tablegen(LLVM GFXAsmGenMCCodeEmitter.inc -gen-emitter)
 
 add_public_tablegen_target(GFXAsmCommonTableGen)
 

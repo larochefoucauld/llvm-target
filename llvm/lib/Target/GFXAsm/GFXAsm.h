@@ -6,7 +6,7 @@
 
 #include "MCTargetDesc/GFXAsmMCTargetDesc.h"
 
-// #define GFXASM_DUMP_ENABLE
+#define GFXASM_DUMP_ENABLE
 
 #ifdef GFXASM_DUMP_ENABLE
 #define GFXASM_DUMP(Color)                                                     \
