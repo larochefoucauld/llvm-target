@@ -82,4 +82,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGFXAsmTargetMC() {
   // Register the MC Code Emitter.
   TargetRegistry::RegisterMCCodeEmitter(TheGfxAsmTarget,
                                         createGFXAsmMCCodeEmitter);
+  // Register the asm backend.
+  TargetRegistry::RegisterMCAsmBackend(TheGfxAsmTarget, createGFXAsmAsmBackend);
 }
