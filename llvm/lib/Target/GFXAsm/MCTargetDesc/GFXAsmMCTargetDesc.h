@@ -1,6 +1,8 @@
 #ifndef LLVM_LIB_TARGET_GFXASM_MCTARGETDESC_GFXASMMCTARGETDESC_H
 #define LLVM_LIB_TARGET_GFXASM_MCTARGETDESC_GFXASMMCTARGETDESC_H
 
+#include <memory>
+
 namespace llvm {
 class MCCodeEmitter;
 class MCContext;
@@ -18,6 +20,8 @@ MCAsmBackend *createGFXAsmAsmBackend(const Target &T,
                                      const MCSubtargetInfo &STI,
                                      const MCRegisterInfo &MRI,
                                      const MCTargetOptions &Options);
+std::unique_ptr<MCObjectTargetWriter>
+createGFXAsmELFObjectWriter(bool Is64Bit, uint8_t OSABI);
 } // namespace llvm
 
 // Defines symbolic names for GFXAsm registers.  This defines a mapping from

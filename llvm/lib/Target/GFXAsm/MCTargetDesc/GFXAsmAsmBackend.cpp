@@ -51,7 +51,10 @@ public:
   }
 
   std::unique_ptr<MCObjectTargetWriter>
-  createObjectTargetWriter() const override {}
+  createObjectTargetWriter() const override {
+    uint8_t OSABI = MCELFObjectTargetWriter::getOSABI(OSType);
+    return createGFXAsmELFObjectWriter(false, OSABI);
+  }
 
 private:
   Triple::OSType OSType;
