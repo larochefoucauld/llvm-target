@@ -66,5 +66,5 @@ def RAND : GFXAsmInst<0xFC, (outs GPR:$r1), (ins GPR:$r2),
                       "RAND $r1 $r2", [(set GPR:$r1, (int_gfxasm_rand GPR:$r2))]>;
 
 let r2 = 0 in
-def RANDi : GFXAsmInst<0xFC, (outs GPR:$r1), (ins simm16:$r3_imm), "RANDi $r1, $r3_imm", 
+def RANDi : GFXAsmInst<0xFB, (outs GPR:$r1), (ins simm16:$r3_imm), "RANDi $r1, $r3_imm", 
                       [(set GPR:$r1, (int_gfxasm_rand simm16:$r3_imm))]>;
