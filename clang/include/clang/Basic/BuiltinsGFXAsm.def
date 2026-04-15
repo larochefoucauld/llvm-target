@@ -1,0 +1,6 @@
+BUILTIN(gfxasm_clear, "v", "n")
+BUILTIN(gfxasm_flush, "v", "n")
+BUILTIN(gfxasm_put_pixel, "viii", "n")
+BUILTIN(gfxasm_rand, "ii", "n")
+
+#undef BUILTIN

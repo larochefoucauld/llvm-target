@@ -89,6 +89,15 @@ namespace clang {
   };
   }
 
+  namespace GFXAsm {
+    enum {
+        LastTIBuiltin = clang::Builtin::FirstTSBuiltin-1,
+  #define BUILTIN(ID, TYPE, ATTRS) BI##ID,
+  #include "clang/Basic/BuiltinsGFXAsm.def"
+        LastTSBuiltin
+    };
+  }
+
   /// PPC builtins
   namespace PPC {
     enum {
@@ -407,7 +416,7 @@ namespace clang {
        PPC::LastTSBuiltin, NVPTX::LastTSBuiltin, AMDGPU::LastTSBuiltin,
        X86::LastTSBuiltin, VE::LastTSBuiltin, RISCV::LastTSBuiltin,
        Hexagon::LastTSBuiltin, Mips::LastTSBuiltin, XCore::LastTSBuiltin,
-       SystemZ::LastTSBuiltin, WebAssembly::LastTSBuiltin});
+       SystemZ::LastTSBuiltin, WebAssembly::LastTSBuiltin, GFXAsm::LastTSBuiltin});
 
 } // end namespace clang.
 
